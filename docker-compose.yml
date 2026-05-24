@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres_dwh:
+    image: postgres:15-alpine
+    container_name: postgres_dwh
+    environment:
+      POSTGRES_USER: de_user
+      POSTGRES_PASSWORD: de_password
+      POSTGRES_DB: ecommerce_dwh
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
