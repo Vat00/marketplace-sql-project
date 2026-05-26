@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # Твое основное хранилище PostgreSQL
   postgres_dwh:
     image: postgres:15-alpine
     container_name: postgres_dwh
@@ -12,6 +13,32 @@ services:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - dwh_network
+
+  # Наш новый аналитический ClickHouse
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: ch_server
+    ports:
+      - "8125:8123" # Внешний порт 8125 для скрипта и браузера (http://localhost:8125/play)
+      - "9002:9000" 
+    environment:
+      - ALLOW_EMPTY_PASSWORD_DEFAULT_USER=1   
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1 
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - ch_data:/var/lib/clickhouse
+    networks:
+      - dwh_network
 
 volumes:
   pgdata:
+  ch_data:
+
+networks:
+  dwh_network:
+    driver: bridge
