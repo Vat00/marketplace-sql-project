@@ -18,11 +18,9 @@ logging.basicConfig(
 )
 
 def get_connection():
-    # Наш проверенный порт 5433 и драйвер pg8000
     return create_engine("postgresql+pg8000://de_user:de_password@localhost:5433/ecommerce_dwh")
 
 def run_sql_analysis(sql_filename, output_csv_name, metric_name):
-    """Универсальная функция для выполнения наших SQL-скриптов"""
     logging.info(f"Инициализация запуска: {metric_name}...")
     sql_path = os.path.join(base_dir, 'sql', sql_filename)
     
@@ -52,7 +50,6 @@ def run_sql_analysis(sql_filename, output_csv_name, metric_name):
         logging.exception(f"Произошел сбой во время расчета {metric_name}: {e}")
 
 if __name__ == "__main__":
-    # Теперь наш скрипт последовательно считает и выгружает ВСЕ наши аналитические модули!
     run_sql_analysis('abc_analysis.sql', 'abc_result.csv', 'ABC-анализ товаров')
     run_sql_analysis('retention.sql', 'retention_result.csv', 'Когортный Retention Rate')
     run_sql_analysis('ltv_cohorts.sql', 'ltv_result.csv', 'Когортный Накопительный LTV')
