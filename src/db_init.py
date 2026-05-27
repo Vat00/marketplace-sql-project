@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 
 def get_connection():
-    # Просто меняем имя драйвера в строке подключения
     engine = create_engine("postgresql+pg8000://de_user:de_password@localhost:5433/ecommerce_dwh")
     return engine.raw_connection()
 
