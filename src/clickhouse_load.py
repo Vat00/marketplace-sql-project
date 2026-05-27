@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def load_abc_to_clickhouse():
     try:
-        # 1. Читаем твой CSV файл
+        # 1. Читаем CSV файл
         logging.info("Чтение данных из abc_result.csv...")
         df = pd.read_csv('abc_result.csv')
         
