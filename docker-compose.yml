@@ -21,7 +21,7 @@ services:
     image: clickhouse/clickhouse-server:latest
     container_name: ch_server
     ports:
-      - "8125:8123" # Внешний порт 8125 для скрипта и браузера (http://localhost:8125/play)
+      - "8125:8123" 
       - "9002:9000" 
     environment:
       - ALLOW_EMPTY_PASSWORD_DEFAULT_USER=1   
